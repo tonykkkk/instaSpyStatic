@@ -2,18 +2,32 @@ let followersFileInput = document.getElementById("followersFile");
 let followingFileInput = document.getElementById("followingFile");
 //let resultList = document.getElementById("resultList");
 
-function addToList(links) {
-  console.log("Обьектов для добавления: " + links.length);
-  links.forEach((link) => {
-    console.log("ПОпытка добавления обьекта в DOM: " + link);
+function addToList(followers) {
+  console.log("Обьектов для добавления: " + followers.length);
+  document.getElementById("resultList").innerHTML = "";
+  followers.forEach((follower) => {
+    console.log("ПОпытка добавления обьекта в DOM: " + follower);
     //const listItem = document.createElement("li");
     //listItem.className = "list-group-item";
 
     // Создание кликабельной ссылки
     const anchor = document.createElement("a");
-    anchor.href = link;
+    anchor.href = follower.string_list_data[0].href;
     anchor.className = "list-group-item list-group-item-action";
-    anchor.textContent = JSON.stringify(link); // используем текст из объекта или значение по умолчанию
+    var date = new Date(follower.string_list_data[0].timestamp * 1000);
+    var printDate =
+      date.getDate() +
+      "." +
+      (date.getMonth() + 1) +
+      "." +
+      date.getFullYear() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds();
+    anchor.textContent = follower.title + " Дата подписки: " + printDate; // используем текст из объекта или значение по умолчанию
     anchor.target = "_blank"; // открывать в новой вкладке (опционально)
     console.log(anchor);
 
@@ -21,9 +35,38 @@ function addToList(links) {
     //listItem.appendChild(anchor);
 
     // Добавляем элемент в DOM (например, в ul с классом list-group)
-    document.querySelector(".list-group").appendChild(anchor);
+    //document.querySelector(".list-group").appendChild(anchor);
     //resultList.appendChild();
+
+    // Использование:
+    const cardHTML = createCustomCard(
+      follower.title,
+      printDate,
+      "Открыть профиль",
+      follower.string_list_data[0].href
+    );
+    console.log(cardHTML);
+    document.getElementById("resultList").innerHTML += cardHTML;
+
+    document.querySelectorAll(".btn").forEach((button) => {
+      button.addEventListener("click", function () {
+        this.classList.replace("btn-primary", "btn-light");
+      });
+    });
+    // document.getElementById("resultList").appendChild(cardHTML);
   });
+}
+
+function createCustomCard(title, text, buttonText, buttonUrl = "#") {
+  return `
+        <div class="card" style="width: 18rem; margin: 12px">
+            <div class="card-body">
+                <h5 class="card-title">${title}</h5>
+                <p class="card-text">${text}</p>
+                <a href="${buttonUrl}" class="btn btn-primary" target="_blank">${buttonText}</a>
+            </div>
+        </div>
+    `;
 }
 
 function rewiew() {
@@ -38,7 +81,7 @@ function rewiew() {
       );
       const flwrs = new Set(hrefFolowers);
       const diff = following.filter((item) => !flwrs.has(item.title));
-      const result = diff.map((item) => item.string_list_data[0].href);
+      const result = diff.map((item) => item);
       console.log("Данные обработаны успешно:");
       console.log(result);
       addToList(result);

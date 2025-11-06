@@ -17,11 +17,12 @@
   </head>
   <body>
     <div class="container">
-        <div class="row align-items-start"><h1>InstaSpy - Анализируй своих подписчиков Instagram</h1></div>
+        <div class="row align-items-center"><h1>InstaSpy - Анализируй своих подписчиков Instagram</h1></div>
+        <div class="row align-items-center"><p>Сервис позволяет проанализировать списки подписчиков Instagram и выявить подписчиков у которых нет взаимной подписки на тебя. <br> Для получения данных о подписчиках необходимо: <br> 1. Выгрузить архив с файлами Instagram <br> 2. Загрузить файлы в формы ниже:</p></div>
       <div class="row align-items-start">
         <div class="col">
           <div class="mb-3">
-            <label for="formFile" class="form-label">Файл followers</label>
+            <label for="formFile" class="form-label">Загрузите файл follower.json</label>
             <input
               class="form-control"
               type="file"
@@ -31,7 +32,7 @@
           </div>
         </div>
         <div class="col">
-          <label for="formFile" class="form-label">Файл following</label>
+          <label for="formFile" class="form-label">Загрузите файл following.json</label>
           <input
             class="form-control"
             type="file"
@@ -40,17 +41,8 @@
           />
         </div>
      
-      <div class="row align-items-center">
-        <div class="col">
-          <div class="card" >
-            <div class="list-group " id="resultList">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    Список пользователей которые на тебя не подписаны:
-                  </a>
-            </ul>
-          </div>
-        </div>
-        <div class="col"></div>
+      <div class="row align-items-center text-center" id="resultList" style="justify-content: center;">
+        
       </div>
     
 </div>
