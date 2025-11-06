@@ -1,7 +1,8 @@
 let followersFileInput = document.getElementById("followersFile");
 let followingFileInput = document.getElementById("followingFile");
 //let resultList = document.getElementById("resultList");
-
+let tg = window.Telegram.WebApp;
+tg.expand();
 function addToList(followers) {
   console.log("Обьектов для добавления: " + followers.length);
   document.getElementById("resultList").innerHTML = "";
