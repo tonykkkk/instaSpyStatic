@@ -174,9 +174,9 @@ function handleFileUpload(event) {
 }
 
 // Основная функция для обработки загруженного файла
-async function handleZipFileUpload(file) {
-  //const fileInput = event.target;
-  //const file = fileInput.files[0];
+async function handleZipFileUpload(event) {
+  const fileInput = event.target;
+  const file = fileInput.files[0];
 
   if (!file) {
     alert("Пожалуйста, выберите файл");
@@ -257,21 +257,21 @@ function readFileAsArrayBuffer(file) {
 //   }
 // });
 
-// zipFileInput.addEventListener("change", async function (event) {
-//   try {
-//     console.log("Файл выбран");
-//     zipFile = await handleZipFileUpload(event);
-//     //unzipData = extractFollowersAndFollowing(zipFile);
-//     //console.log("Успешно загружено followers:", unzipData);
+zipFileInput.addEventListener("change", async function (event) {
+  try {
+    console.log("Файл выбран");
+    zipFile = await handleZipFileUpload(event);
+    //unzipData = extractFollowersAndFollowing(zipFile);
+    //console.log("Успешно загружено followers:", unzipData);
 
-//     // Сохраняем данные
-//     //window.followers = unzipData.followers;
-//     //window.following = unzipData.following;
-//   } catch (error) {
-//     console.error("Ошибка загрузки:", error.message);
-//     alert(`Ошибка: ${error.message}`);
-//   }
-// });
+    // Сохраняем данные
+    //window.followers = unzipData.followers;
+    //window.following = unzipData.following;
+  } catch (error) {
+    console.error("Ошибка загрузки:", error.message);
+    alert(`Ошибка: ${error.message}`);
+  }
+});
 
 Dropzone.autoDiscover = false;
 
