@@ -41,10 +41,10 @@ async function extractFollowersAndFollowing(zipFile) {
 //let resultList = document.getElementById("resultList");
 let tg = window.Telegram.WebApp;
 tg.expand();
-function addToList(followers) {
+function addToList(followers, delay = 300) {
   console.log("Обьектов для добавления: " + followers.length);
   document.getElementById("resultList").innerHTML = "";
-  followers.forEach((follower) => {
+  followers.forEach((follower, index) => {
     console.log("ПОпытка добавления обьекта в DOM: " + follower);
     //const listItem = document.createElement("li");
     //listItem.className = "list-group-item";
@@ -86,7 +86,9 @@ function addToList(followers) {
     );
     console.log(cardHTML);
     document.getElementById("resultList").innerHTML += cardHTML;
-
+    // setTimeout(() => {
+    //   document.getElementById("resultList").innerHTML += cardHTML;
+    // }, index * delay);
     document.querySelectorAll(".btn").forEach((button) => {
       button.addEventListener("click", function () {
         this.classList.replace("btn-primary", "btn-light");
@@ -98,7 +100,7 @@ function addToList(followers) {
 
 function createCustomCard(title, text, buttonText, buttonUrl = "#") {
   return `
-        <div class="card" style="width: 18rem; margin: 12px">
+        <div class="card fade-in-element" style="width: 18rem; margin: 12px">
             <div class="card-body">
                 <h5 class="card-title">${title}</h5>
                 <p class="card-text">${text}</p>
@@ -110,6 +112,8 @@ function createCustomCard(title, text, buttonText, buttonUrl = "#") {
 
 function rewiew() {
   try {
+    document.getElementById("resultList").innerHTML = "";
+    document.getElementById("resultList").offsetHeight;
     console.log("ПОпытка сравнения файлов");
 
     if (window.following != null && window.followers != null) {
@@ -259,6 +263,8 @@ function readFileAsArrayBuffer(file) {
 
 zipFileInput.addEventListener("change", async function (event) {
   try {
+    document.getElementById("resultList").innerHTML = "";
+    document.getElementById("resultList").offsetHeight;
     console.log("Файл выбран");
     zipFile = await handleZipFileUpload(event);
     //unzipData = extractFollowersAndFollowing(zipFile);
